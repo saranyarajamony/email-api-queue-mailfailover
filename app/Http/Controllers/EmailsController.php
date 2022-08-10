@@ -79,29 +79,24 @@ class EmailsController extends Controller
     public function store(EmailCreateRequest $request)
     {
         try {
-
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $email = $this->repository->create($request->all());
+            $this->repository->create($request->all());
 
-            $this->sendEmail($request);
+            $mailSendResponse = $this->sendEmail($request);
 
             /* $response = [
                 'message' => 'Email created.',
                 'data'    => $email->toArray(),
             ];*/
 
-            $response = [
-                'message' => 'Account created',
-                'data'    => 'Notification mail has been sent to ' . $email->to
-            ];
-
-            return response()->json($response);
+            return $mailSendResponse;
+            
         } catch (ValidatorException $e) {
 
             return response()->json([
                 'error'   => true,
-                'message' => $e->getMessage()
+                'message' => $e->getMessageBag()
             ]);
         }
     }
@@ -110,7 +105,7 @@ class EmailsController extends Controller
      * Method to setup the email attributes and send mail to queue so that the sending of the mail happens in the background 
      * without affecting  the response time of the application
      * 
-     * @return void
+     * @return \Illuminate\Http\Response
      */
 
     public function sendEmail(EmailCreateRequest $request)
@@ -126,11 +121,17 @@ class EmailsController extends Controller
 
         $mailable = new DynamicMailer($emailAttr);
 
+
         //Queue instead to avoid delay in response time (Mail send in the background)
         Mail::to($mailable->emailAttributes->to)
             ->cc($mailable->emailAttributes->cc)
             ->bcc($mailable->emailAttributes->bcc)
             // ->send($mailable);
             ->queue($mailable);
+
+        return response()->json([
+            'message' => 'Account created',
+            'data'    => 'Notification mail has been sent to ' . $mailable->emailAttributes->to
+        ]);
     }
 }

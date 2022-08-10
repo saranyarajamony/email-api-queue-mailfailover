@@ -18,6 +18,12 @@ class DynamicMailer extends Mailable implements ShouldQueue
     
     public $emailAttributes;
 
+    // number of times the job may be attempted
+    public $tries = 3;
+
+    // job is considered as failed on timeout
+    public $failOnTimeout = true;
+
 
     /**
      * Create a new message instance.
@@ -47,5 +53,4 @@ class DynamicMailer extends Mailable implements ShouldQueue
         ->with('emailContent', $this->emailAttributes->content)
         ->with('mailOpener', ucwords($this->emailAttributes->name));
     }
-
 }
