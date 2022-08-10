@@ -96,7 +96,7 @@ return [
 
         'log' => [
             'transport' => 'log',
-            'channel' => 'mail',
+            'channel' => env('LOG_MAIL_CHANNEL')
         ],
 
         'array' => [
