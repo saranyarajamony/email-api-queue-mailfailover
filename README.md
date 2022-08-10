@@ -1,4 +1,4 @@
-## About API
+## EmailService API
 
 Create an email service API, which can be open source and reusable in any other services.
 * Use l5 repository as application structure (https://github.com/andersao/l5-repository)
