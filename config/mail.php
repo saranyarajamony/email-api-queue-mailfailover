@@ -16,7 +16,8 @@ return [
     // When failover mailer is used, email sending service can quickly
     //  failover to another provider without affecting your customers if 
     //  one of the services goes down.
-    'default' => env('MAIL_MAILER', 'failover'), 
+
+    'default' => env('MAIL_MAILER', 'failover'),  //Test case written to test the functionality
 
     /*
     |--------------------------------------------------------------------------
@@ -37,27 +38,55 @@ return [
     */
 
     'mailers' => [
+
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST'),
             'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'encryption' => env('MAIL_ENCRYPTION'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            'timeout' => 5,
             'auth_mode' => null,
         ],
-        
-        'ses' => [
-            'transport' => 'ses',
-        ],
+
 
         'mailgun' => [
             'transport' => 'mailgun',
+            'host' => env('MAILGUN_HOST'),
+            'port' => env('MAIL_PORT', 587),
+            'encryption' => env('MAIL_ENCRYPTION'),
+            'username' => env('MAILGUN_USERNAME'),
+            'password' => env('MAILGUN_PASSWORD'),
+            'timeout' => 5,
+            'auth_mode' => null,
+        ],
+
+        'mailtrap' => [
+            'transport' => 'smtp',
+            'host' => env('MAILTRAP_HOST'),
+            'port' => env('MAILTRAP_PORT', 587),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'username' => env('MAILTRAP_USERNAME'),
+            'password' => env('MAILTRAP_PASSWORD'),
+            'timeout' => 5,
+            'auth_mode' => null,
         ],
 
         'postmark' => [
-            'transport' => 'postmark',
+            'transport' => 'smtp',
+            'host' => env('MAIL_POSTMARK_HOST'),
+            'port' => env('MAIL_PORT', 587),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'username' => env('MAIL_POSTMARK_USERNAME'),
+            'password' => env('MAIL_POSTMARK_PASSWORD'),
+            'timeout' => 5,
+            'auth_mode' => null,
+        ],
+
+                     
+        'ses' => [
+            'transport' => 'ses',
         ],
 
         'sendmail' => [
@@ -67,18 +96,20 @@ return [
 
         'log' => [
             'transport' => 'log',
-            'channel' => env('MAIL_LOG_CHANNEL'),
+            'channel' => 'mail',
         ],
 
         'array' => [
             'transport' => 'array',
         ],
 
-        //mailer switching sequence for failover setup
+        //mailer switching sequence for failover setup        
         'failover' => [
             'transport' => 'failover',
             'mailers' => [
+                'smtp',
                 'mailgun', 
+                'mailtrap',
                 'postmark',                               
                 'log',
             ],

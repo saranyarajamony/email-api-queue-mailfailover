@@ -19,4 +19,4 @@ use App\Http\Controllers\EmailsController;
 //     return view('welcome');
 // });
 
-// Route::get('/', 'EmailsController@sendEmail');
+

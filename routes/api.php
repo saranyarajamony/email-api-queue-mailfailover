@@ -13,11 +13,11 @@ use App\Http\Controllers\EmailsController;
 |
 */
 
-Route::middleware('api')->prefix('v1')->group(function(){           // no authentication
-//Route::middleware('auth:api')->prefix('v1')->group(function(){        // with token authentication
-    
-    Route::apiResource('/emails', EmailsController::class);
+Route::prefix('v1')
+    ->middleware([
+     //   'auth:sanctum'
+    ])
+    ->group(function (){
+        \App\Helpers\Routes\RouteHelper::includeRouteFiles(__DIR__ . '/api/v1');
 
-    Route::post('/emails', [EmailsController::class, 'store']);
-    
-});
+    });
