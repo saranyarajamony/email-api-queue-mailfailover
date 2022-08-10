@@ -30,4 +30,4 @@ Development environment:
 
 ## Testcase
 * Used PHPUnit
-* written test case for checking MailFailoverTransportTest
+* written unit test case for checking Mail Failover Transport
