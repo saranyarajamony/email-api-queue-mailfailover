@@ -22,12 +22,12 @@ class EmailTransformer extends TransformerAbstract
     public function transform(Email $model)
     {
         return [
-            'id'         => (int) $model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
+             'id'        => (int) $model->id,
+            'username'   => $model->username,
+            'subject'    => $model->subject,
+            'content'    => $model->content,
+            'to'         => $model->to,
+            'from'       => $model->from
         ];
     }
 }
