@@ -7,14 +7,17 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\EmailRepository;
 use App\Entities\Email;
 use App\Validators\EmailValidator;
+use Prettus\Repository\Contracts\CacheableInterface;
+use Prettus\Repository\Traits\CacheableRepository;
 
 /**
  * Class EmailRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class EmailRepositoryEloquent extends BaseRepository implements EmailRepository
+class EmailRepositoryEloquent extends BaseRepository implements EmailRepository, CacheableInterface
 {
+    use CacheableRepository;
     /**
      * Specify Model class name
      *
@@ -43,6 +46,16 @@ class EmailRepositoryEloquent extends BaseRepository implements EmailRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+    
+     /**
+     * Specify Presenter class name
+     *
+     * @return string
+     */
+    public function presenter()
+    {
+        return "App\\Presenters\\EmailPresenter";
     }
     
 }
