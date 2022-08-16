@@ -28,6 +28,17 @@ class EmailRepositoryEloquent extends BaseRepository implements EmailRepository,
         return Email::class;
     }
 
+    
+    /**
+     * Searchable Fields
+     * @var array
+     */
+    protected $fieldSearchable = [
+        'username',
+        'to',
+        'from'
+    ];
+    
     /**
     * Specify Validator class name
     *
