@@ -59,7 +59,7 @@ class EmailsController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+       // $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $emails = $this->repository->all();
 
         return response()->json([
@@ -79,7 +79,7 @@ class EmailsController extends Controller
     public function store(EmailCreateRequest $request)
     {
         try {
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+           // $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
             $this->repository->create($request->all());
 
