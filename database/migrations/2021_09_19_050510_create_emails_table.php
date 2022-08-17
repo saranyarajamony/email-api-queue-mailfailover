@@ -16,13 +16,13 @@ class CreateEmailsTable extends Migration
 	public function up()
 	{
 		Schema::create('emails', function(Blueprint $table) {
-            $table->increments('id');
-			$table->string('username'); // Ze: added field for DB
-            $table->string('subject'); //Ze: added field for DB
-			$table->string('content'); //Ze: added field for DB
-			$table->string('to'); //Ze: added field for DB
-			$table->string('from'); //Ze: added field for DB
-            $table->timestamps();
+                        $table->increments('id');
+			$table->string('username'); 
+                        $table->string('subject'); 
+			$table->text('content'); 
+			$table->string('to'); 
+			$table->string('from'); 
+                        $table->timestamps();
 		});
 	}
 
