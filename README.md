@@ -31,3 +31,7 @@ Development environment:
 ## Testcase
 * Used PHPUnit
 * written unit test case for checking Mail Failover Transport
+
+##Dochelper
+* Has a lucid chart to understand flow
+* doc - explaning some technical sides of the project
